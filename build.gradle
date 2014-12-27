@@ -1,0 +1,36 @@
+apply plugin: 'java'
+apply plugin: 'jacoco'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+repositories {
+    mavenCentral()
+
+    maven {
+        url 'http://repository.apache.org/content/repositories/snapshots'
+    }
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination "${buildDir}/jacocoHtml"
+    }
+}
+
+dependencies {
+    compile 'org.hibernate:hibernate-entitymanager:4.3.7.Final'
+    compile 'org.hibernate:hibernate-ehcache:4.3.7.Final'
+    compile 'org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final'
+    compile 'commons-io:commons-io:2.4'
+    compile 'org.bouncycastle:bcprov-jdk16:1.46'
+    compile 'org.projectlombok:lombok:1.14.8'
+    compile 'com.google.inject:guice:3.0'
+    compile 'org.apache.onami.lifecycle:org.apache.onami.lifecycle.jsr250:0.2.0-SNAPSHOT'
+
+    testCompile 'junit:junit:4.+'
+    testCompile 'com.h2database:h2:1.4.178'
+}
